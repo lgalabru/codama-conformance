@@ -1,0 +1,290 @@
+[
+  {
+    "id": "base58-system-program",
+    "mode": "base58",
+    "description": "The system program id decodes to 32 zero bytes.",
+    "input": {
+      "base58": "11111111111111111111111111111111",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  {
+    "id": "base58-pump-program",
+    "mode": "base58",
+    "description": "The pump-fun program id.",
+    "input": {
+      "base58": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "0156e0f693665acf44db1568bf175baa5189cb97f5d2ff3b655d2bb6fd6d18b0"
+    }
+  },
+  {
+    "id": "base58-memo-program",
+    "mode": "base58",
+    "description": "The memo program id.",
+    "input": {
+      "base58": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d"
+    }
+  },
+  {
+    "id": "base58-token-program",
+    "mode": "base58",
+    "description": "The SPL token program id.",
+    "input": {
+      "base58": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "06ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a9"
+    }
+  },
+  {
+    "id": "base58-ata-program",
+    "mode": "base58",
+    "description": "The associated-token-account program id.",
+    "input": {
+      "base58": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "8c97258f4e2489f1bb3d1029148e0d830b5a1399daff1084048e7bd8dbe9f859"
+    }
+  },
+  {
+    "id": "base58-wrapped-sol",
+    "mode": "base58",
+    "description": "The wrapped SOL mint (embedded \"1\" run).",
+    "input": {
+      "base58": "So11111111111111111111111111111111111111112",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "069b8857feab8184fb687f634618c035dac439dc1aeb3b5598a0f00000000001"
+    }
+  },
+  {
+    "id": "base58-vote-program",
+    "mode": "base58",
+    "description": "The vote program id (long trailing \"1\" run).",
+    "input": {
+      "base58": "Vote111111111111111111111111111111111111111",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "0761481d357474bb7c4d7624ebd3bdb3d8355e73d11043fc0da3538000000000"
+    }
+  },
+  {
+    "id": "base58-recent-blockhashes-sysvar",
+    "mode": "base58",
+    "description": "The recent-blockhashes sysvar (lua smoke-test key).",
+    "input": {
+      "base58": "SysvarRecentB1ockHashes11111111111111111111",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "06a7d517192c568ee08a845f73d29788cf035c3145b21ab344d8062ea9400000"
+    }
+  },
+  {
+    "id": "base58-wallet-1",
+    "mode": "base58",
+    "description": "A wallet key from the python smoke test.",
+    "input": {
+      "base58": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "7cfd94d5edd663096a9ca6a1b95bb0ce64417eb67c7efffa6e62bdb318d00f14"
+    }
+  },
+  {
+    "id": "base58-wallet-2",
+    "mode": "base58",
+    "description": "A wallet key from the ruby smoke test.",
+    "input": {
+      "base58": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989"
+    }
+  },
+  {
+    "id": "base58-wallet-3",
+    "mode": "base58",
+    "description": "A wallet key from the php smoke test.",
+    "input": {
+      "base58": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "eafcd142bd81a87dc0dcbb4faf08efa886f9e1adc43d0b8d455f7f977a766703"
+    }
+  },
+  {
+    "id": "base58-wallet-4",
+    "mode": "base58",
+    "description": "A wallet key from the php smoke test.",
+    "input": {
+      "base58": "7g2eDDDvbWoUjjSMSGA4WdQhSBNRRGTRwY4MQer2hUYy",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "6325a1154574b97f106ba2a84ae907684aa38aacb166e88dae3560b2b5ca17ba"
+    }
+  },
+  {
+    "id": "base58-dummy-program",
+    "mode": "base58",
+    "description": "The dummy fixture program id.",
+    "input": {
+      "base58": "Dummy11111111111111111111111111111111111111",
+      "as": "pubkey"
+    },
+    "expected": {
+      "hex": "034ea3a1a503c9e15635de31caf650cea7a4a0bbdb62189b9dd5d00000000000"
+    }
+  },
+  {
+    "id": "base58-generic-hello-world",
+    "mode": "base58",
+    "description": "Generic byte-string round-trip (lua smoke-test case).",
+    "input": {
+      "base58": "StV1DL6CwTryKyV",
+      "as": "bytes"
+    },
+    "expected": {
+      "hex": "68656c6c6f20776f726c64"
+    }
+  },
+  {
+    "id": "base58-leading-zeros",
+    "mode": "base58",
+    "description": "Leading zero bytes map to leading \"1\" characters one-for-one.",
+    "input": {
+      "base58": "11Ldp",
+      "as": "bytes"
+    },
+    "expected": {
+      "hex": "0000010203"
+    }
+  },
+  {
+    "id": "base58-single-zero-byte",
+    "mode": "base58",
+    "description": "A single zero byte encodes as \"1\".",
+    "input": {
+      "base58": "1",
+      "as": "bytes"
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "base58-empty",
+    "mode": "base58",
+    "description": "Empty input encodes as the empty string.",
+    "input": {
+      "base58": "",
+      "as": "bytes"
+    },
+    "expected": {
+      "hex": ""
+    }
+  },
+  {
+    "id": "base58-single-byte-ff",
+    "mode": "base58",
+    "description": "A single 0xff byte.",
+    "input": {
+      "base58": "5Q",
+      "as": "bytes"
+    },
+    "expected": {
+      "hex": "ff"
+    }
+  },
+  {
+    "id": "base58-invalid-char-l0l",
+    "mode": "base58",
+    "description": "Invalid characters: \"l\" and \"0\" are not in the base58 alphabet (ruby smoke-test case).",
+    "input": {
+      "base58": "l0l",
+      "as": "bytes"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "base58-invalid-char-0oil",
+    "mode": "base58",
+    "description": "All four excluded alphabet characters: 0, O, I, l.",
+    "input": {
+      "base58": "0OIl",
+      "as": "bytes"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "base58-invalid-char-punct",
+    "mode": "base58",
+    "description": "Punctuation is not in the base58 alphabet.",
+    "input": {
+      "base58": "abc!def",
+      "as": "bytes"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "base58-pubkey-too-short",
+    "mode": "base58",
+    "description": "Valid base58 that decodes to 2 bytes: must be rejected when parsed as a 32-byte pubkey.",
+    "input": {
+      "base58": "5T",
+      "as": "pubkey"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "base58-pubkey-31-bytes",
+    "mode": "base58",
+    "description": "Valid base58 that decodes to 31 bytes: one short of a pubkey.",
+    "input": {
+      "base58": "7DUeBUtEcb7nujVZRJmeBju3X1mo6PpnWNtJ9EBhdY",
+      "as": "pubkey"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "base58-pubkey-33-bytes",
+    "mode": "base58",
+    "description": "Valid base58 that decodes to 33 bytes: one over a pubkey.",
+    "input": {
+      "base58": "365efUdXGhRExyDEUeKXWPg1zTZyfvuJQJDLsS7JZqzyt",
+      "as": "pubkey"
+    },
+    "expected": {
+      "error": true
+    }
+  }
+]

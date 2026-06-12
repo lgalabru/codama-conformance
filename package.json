@@ -1,0 +1,14 @@
+{
+  "name": "codama-conformance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Language-agnostic test-vector corpus for the Codama renderers (python, ruby, php, lua).",
+  "scripts": {
+    "generate": "node generate-vectors.mjs"
+  },
+  "dependencies": {
+    "@solana/kit": "^6.9.0",
+    "@solana/web3.js": "^1.98.4"
+  }
+}

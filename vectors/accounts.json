@@ -1,0 +1,266 @@
+[
+  {
+    "id": "account-system-nonce-python",
+    "mode": "account",
+    "description": "System Nonce (python smoke-test case): u32 LE scalar enums + two pubkeys + u64. 80 bytes total.",
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "fields": {
+        "version": 1,
+        "state": 1,
+        "authority": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+        "blockhash": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "lamportsPerSignature": "5000"
+      }
+    },
+    "expected": {
+      "hex": "01000000010000000156e0f693665acf44db1568bf175baa5189cb97f5d2ff3b655d2bb6fd6d18b0054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d8813000000000000",
+      "size": 80
+    }
+  },
+  {
+    "id": "account-system-nonce-ruby",
+    "mode": "account",
+    "description": "System Nonce (ruby smoke-test case).",
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "fields": {
+        "version": 1,
+        "state": 1,
+        "authority": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+        "blockhash": "So11111111111111111111111111111111111111112",
+        "lamportsPerSignature": "5000"
+      }
+    },
+    "expected": {
+      "hex": "0100000001000000e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989069b8857feab8184fb687f634618c035dac439dc1aeb3b5598a0f000000000018813000000000000",
+      "size": 80
+    }
+  },
+  {
+    "id": "account-system-nonce-lua",
+    "mode": "account",
+    "description": "System Nonce (lua smoke-test case).",
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "fields": {
+        "version": 1,
+        "state": 1,
+        "authority": "Vote111111111111111111111111111111111111111",
+        "blockhash": "SysvarRecentB1ockHashes11111111111111111111",
+        "lamportsPerSignature": "5000"
+      }
+    },
+    "expected": {
+      "hex": "01000000010000000761481d357474bb7c4d7624ebd3bdb3d8355e73d11043fc0da353800000000006a7d517192c568ee08a845f73d29788cf035c3145b21ab344d8062ea94000008813000000000000",
+      "size": 80
+    }
+  },
+  {
+    "id": "account-pump-bonding-curve-small-values",
+    "mode": "account",
+    "description": "Pump-fun BondingCurve (python smoke-test case): 8-byte field discriminator 17b7f83760d8ac60 + five u64 + bool + pubkey + bool. 82 bytes total.",
+    "input": {
+      "program": "pump",
+      "account": "bondingCurve",
+      "fields": {
+        "virtualTokenReserves": "1",
+        "virtualSolReserves": "2",
+        "realTokenReserves": "3",
+        "realSolReserves": "4",
+        "tokenTotalSupply": "5",
+        "complete": false,
+        "creator": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "isMayhemMode": true
+      }
+    },
+    "expected": {
+      "hex": "17b7f83760d8ac6001000000000000000200000000000000030000000000000004000000000000000500000000000000007cfd94d5edd663096a9ca6a1b95bb0ce64417eb67c7efffa6e62bdb318d00f1401",
+      "size": 82
+    }
+  },
+  {
+    "id": "account-pump-bonding-curve-realistic-values",
+    "mode": "account",
+    "description": "Pump-fun BondingCurve (ruby smoke-test case): realistic reserve values.",
+    "input": {
+      "program": "pump",
+      "account": "bondingCurve",
+      "fields": {
+        "virtualTokenReserves": "1073000000000000",
+        "virtualSolReserves": "30000000000",
+        "realTokenReserves": "793100000000000",
+        "realSolReserves": "0",
+        "tokenTotalSupply": "1000000000000000",
+        "complete": false,
+        "creator": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+        "isMayhemMode": true
+      }
+    },
+    "expected": {
+      "hex": "17b7f83760d8ac600010d847e3cf030000ac23fc060000000078c5fb51d1020000000000000000000080c6a47e8d030000e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e98901",
+      "size": 82
+    }
+  },
+  {
+    "id": "account-pump-bonding-curve-u64-above-2pow63",
+    "mode": "account",
+    "description": "Pump-fun BondingCurve (php smoke-test case): virtualTokenReserves exceeds 2^63.",
+    "input": {
+      "program": "pump",
+      "account": "bondingCurve",
+      "fields": {
+        "virtualTokenReserves": "10000000000000000000",
+        "virtualSolReserves": "2",
+        "realTokenReserves": "3",
+        "realSolReserves": "4",
+        "tokenTotalSupply": "5",
+        "complete": false,
+        "creator": "7g2eDDDvbWoUjjSMSGA4WdQhSBNRRGTRwY4MQer2hUYy",
+        "isMayhemMode": true
+      }
+    },
+    "expected": {
+      "hex": "17b7f83760d8ac600000e8890423c78a0200000000000000030000000000000004000000000000000500000000000000006325a1154574b97f106ba2a84ae907684aa38aacb166e88dae3560b2b5ca17ba01",
+      "size": 82
+    }
+  },
+  {
+    "id": "account-pump-fee-config-ruby",
+    "mode": "account",
+    "description": "Pump-fun FeeConfig (ruby smoke-test case): discriminator + u8 bump + admin pubkey + nested Fees struct + u32-prefixed vec of FeeTier (u128 threshold + nested Fees). Exercises u128 = 10^20.",
+    "input": {
+      "program": "pump",
+      "account": "feeConfig",
+      "fields": {
+        "bump": 254,
+        "admin": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "flatFees": {
+          "lpFeeBps": "30",
+          "protocolFeeBps": "10",
+          "creatorFeeBps": "5"
+        },
+        "feeTiers": [
+          {
+            "marketCapLamportsThreshold": "100000000000000000000",
+            "fees": {
+              "lpFeeBps": "100",
+              "protocolFeeBps": "50",
+              "creatorFeeBps": "25"
+            }
+          },
+          {
+            "marketCapLamportsThreshold": "5",
+            "fees": {
+              "lpFeeBps": "1",
+              "protocolFeeBps": "2",
+              "creatorFeeBps": "3"
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "hex": "8f3492bbdb7b4c9bfe06ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a91e000000000000000a00000000000000050000000000000002000000000010632d5ec76b050000000000000064000000000000003200000000000000190000000000000005000000000000000000000000000000010000000000000002000000000000000300000000000000"
+    }
+  },
+  {
+    "id": "account-pump-fee-config-lua",
+    "mode": "account",
+    "description": "Pump-fun FeeConfig (lua smoke-test case): u128 threshold with every byte 0x01, two identical tiers.",
+    "input": {
+      "program": "pump",
+      "account": "feeConfig",
+      "fields": {
+        "bump": 7,
+        "admin": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "flatFees": {
+          "lpFeeBps": "10",
+          "protocolFeeBps": "20",
+          "creatorFeeBps": "30"
+        },
+        "feeTiers": [
+          {
+            "marketCapLamportsThreshold": "1334440654591915542993625911497130241",
+            "fees": {
+              "lpFeeBps": "1",
+              "protocolFeeBps": "2",
+              "creatorFeeBps": "3"
+            }
+          },
+          {
+            "marketCapLamportsThreshold": "1334440654591915542993625911497130241",
+            "fees": {
+              "lpFeeBps": "1",
+              "protocolFeeBps": "2",
+              "creatorFeeBps": "3"
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "hex": "8f3492bbdb7b4c9b07054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d0a0000000000000014000000000000001e00000000000000020000000101010101010101010101010101010101000000000000000200000000000000030000000000000001010101010101010101010101010101010000000000000002000000000000000300000000000000"
+    }
+  },
+  {
+    "id": "account-system-nonce-truncated-1-byte",
+    "mode": "account",
+    "description": "Decoding a Nonce account from a single byte must fail (python smoke-test case).",
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "hex": "00",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "account-system-nonce-truncated-5-bytes",
+    "mode": "account",
+    "description": "Decoding a Nonce account from five zero bytes must fail (lua smoke-test case).",
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "hex": "0000000000",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "account-pump-bonding-curve-truncated",
+    "mode": "account",
+    "description": "Decoding a BondingCurve account from 81 of its 82 bytes must fail.",
+    "input": {
+      "program": "pump",
+      "account": "bondingCurve",
+      "hex": "17b7f83760d8ac6001000000000000000200000000000000030000000000000004000000000000000500000000000000007cfd94d5edd663096a9ca6a1b95bb0ce64417eb67c7efffa6e62bdb318d00f14",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "account-system-nonce-unknown-enum-variant",
+    "mode": "account",
+    "description": "A Nonce account whose state field holds the unknown variant index 99. Strict decoders (python IntEnum, php backed enums) reject it; decoders that surface scalar enums as raw integers (lua) accept it and may skip this vector.",
+    "optional": true,
+    "input": {
+      "program": "system",
+      "account": "nonce",
+      "hex": "01000000630000000156e0f693665acf44db1568bf175baa5189cb97f5d2ff3b655d2bb6fd6d18b0054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d8813000000000000",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  }
+]

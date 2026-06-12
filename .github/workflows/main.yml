@@ -1,0 +1,34 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate vectors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate every vector file is well-formed JSON
+        run: |
+          shopt -s nullglob
+          count=0
+          for f in vectors/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" \
+              && echo "ok: $f"
+            count=$((count + 1))
+          done
+          if [ "$count" -eq 0 ]; then
+            echo "No vector files found in vectors/" >&2
+            exit 1
+          fi
+          echo "Validated $count vector file(s)."

@@ -1,0 +1,1286 @@
+[
+  {
+    "id": "borsh-u8-zero",
+    "mode": "borsh",
+    "description": "u8 minimum value.",
+    "input": {
+      "type": "u8",
+      "value": 0
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-u8-one",
+    "mode": "borsh",
+    "description": "u8 value 1.",
+    "input": {
+      "type": "u8",
+      "value": 1
+    },
+    "expected": {
+      "hex": "01"
+    }
+  },
+  {
+    "id": "borsh-u8-max",
+    "mode": "borsh",
+    "description": "u8 maximum value (255).",
+    "input": {
+      "type": "u8",
+      "value": 255
+    },
+    "expected": {
+      "hex": "ff"
+    }
+  },
+  {
+    "id": "borsh-u8-truncated",
+    "mode": "borsh",
+    "description": "Reading a u8 from an empty buffer must fail.",
+    "input": {
+      "type": "u8",
+      "hex": "",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-u16-mixed-bytes",
+    "mode": "borsh",
+    "description": "u16 0x1234: little-endian byte order is observable.",
+    "input": {
+      "type": "u16",
+      "value": 4660
+    },
+    "expected": {
+      "hex": "3412"
+    }
+  },
+  {
+    "id": "borsh-u16-max",
+    "mode": "borsh",
+    "description": "u16 maximum value (65535).",
+    "input": {
+      "type": "u16",
+      "value": 65535
+    },
+    "expected": {
+      "hex": "ffff"
+    }
+  },
+  {
+    "id": "borsh-u32-one",
+    "mode": "borsh",
+    "description": "u32 value 1 (three trailing zero bytes).",
+    "input": {
+      "type": "u32",
+      "value": 1
+    },
+    "expected": {
+      "hex": "01000000"
+    }
+  },
+  {
+    "id": "borsh-u32-mixed-bytes",
+    "mode": "borsh",
+    "description": "u32 0xdeadbeef: little-endian byte order.",
+    "input": {
+      "type": "u32",
+      "value": 3735928559
+    },
+    "expected": {
+      "hex": "efbeadde"
+    }
+  },
+  {
+    "id": "borsh-u32-max",
+    "mode": "borsh",
+    "description": "u32 maximum value (4294967295).",
+    "input": {
+      "type": "u32",
+      "value": 4294967295
+    },
+    "expected": {
+      "hex": "ffffffff"
+    }
+  },
+  {
+    "id": "borsh-u64-zero",
+    "mode": "borsh",
+    "description": "u64 zero. 64-bit values are decimal strings in JSON.",
+    "input": {
+      "type": "u64",
+      "value": "0"
+    },
+    "expected": {
+      "hex": "0000000000000000"
+    }
+  },
+  {
+    "id": "borsh-u64-one-million",
+    "mode": "borsh",
+    "description": "u64 1000000 (the transferSol smoke-test amount).",
+    "input": {
+      "type": "u64",
+      "value": "1000000"
+    },
+    "expected": {
+      "hex": "40420f0000000000"
+    }
+  },
+  {
+    "id": "borsh-u64-2pow63",
+    "mode": "borsh",
+    "description": "u64 2^63: exceeds i64 range; must not be treated as a signed value.",
+    "input": {
+      "type": "u64",
+      "value": "9223372036854775808"
+    },
+    "expected": {
+      "hex": "0000000000000080"
+    }
+  },
+  {
+    "id": "borsh-u64-max",
+    "mode": "borsh",
+    "description": "u64 maximum value (2^64-1): all 0xff bytes.",
+    "input": {
+      "type": "u64",
+      "value": "18446744073709551615"
+    },
+    "expected": {
+      "hex": "ffffffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-u64-truncated",
+    "mode": "borsh",
+    "description": "Reading a u64 from a 3-byte buffer must fail (lua smoke-test case).",
+    "input": {
+      "type": "u64",
+      "hex": "010203",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-u128-small",
+    "mode": "borsh",
+    "description": "u128 42: a small value still occupies 16 bytes.",
+    "input": {
+      "type": "u128",
+      "value": "42"
+    },
+    "expected": {
+      "hex": "2a000000000000000000000000000000"
+    }
+  },
+  {
+    "id": "borsh-u128-2pow127",
+    "mode": "borsh",
+    "description": "u128 2^127 (python smoke-test case): 15 zero bytes then 0x80.",
+    "input": {
+      "type": "u128",
+      "value": "170141183460469231731687303715884105728"
+    },
+    "expected": {
+      "hex": "00000000000000000000000000000080"
+    }
+  },
+  {
+    "id": "borsh-u128-max",
+    "mode": "borsh",
+    "description": "u128 maximum value (2^128-1): 16 0xff bytes.",
+    "input": {
+      "type": "u128",
+      "value": "340282366920938463463374607431768211455"
+    },
+    "expected": {
+      "hex": "ffffffffffffffffffffffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-i8-minus-one",
+    "mode": "borsh",
+    "description": "i8 -1: two's complement 0xff.",
+    "input": {
+      "type": "i8",
+      "value": -1
+    },
+    "expected": {
+      "hex": "ff"
+    }
+  },
+  {
+    "id": "borsh-i8-min",
+    "mode": "borsh",
+    "description": "i8 minimum value (-128).",
+    "input": {
+      "type": "i8",
+      "value": -128
+    },
+    "expected": {
+      "hex": "80"
+    }
+  },
+  {
+    "id": "borsh-i8-max",
+    "mode": "borsh",
+    "description": "i8 maximum value (127).",
+    "input": {
+      "type": "i8",
+      "value": 127
+    },
+    "expected": {
+      "hex": "7f"
+    }
+  },
+  {
+    "id": "borsh-i16-minus-two",
+    "mode": "borsh",
+    "description": "i16 -2.",
+    "input": {
+      "type": "i16",
+      "value": -2
+    },
+    "expected": {
+      "hex": "feff"
+    }
+  },
+  {
+    "id": "borsh-i16-min",
+    "mode": "borsh",
+    "description": "i16 minimum value (-32768).",
+    "input": {
+      "type": "i16",
+      "value": -32768
+    },
+    "expected": {
+      "hex": "0080"
+    }
+  },
+  {
+    "id": "borsh-i32-minus-one",
+    "mode": "borsh",
+    "description": "i32 -1: four 0xff bytes (ruby kitchen-sink fixed-array element).",
+    "input": {
+      "type": "i32",
+      "value": -1
+    },
+    "expected": {
+      "hex": "ffffffff"
+    }
+  },
+  {
+    "id": "borsh-i32-min",
+    "mode": "borsh",
+    "description": "i32 minimum value (-2147483648).",
+    "input": {
+      "type": "i32",
+      "value": -2147483648
+    },
+    "expected": {
+      "hex": "00000080"
+    }
+  },
+  {
+    "id": "borsh-i32-max",
+    "mode": "borsh",
+    "description": "i32 maximum value (2147483647).",
+    "input": {
+      "type": "i32",
+      "value": 2147483647
+    },
+    "expected": {
+      "hex": "ffffff7f"
+    }
+  },
+  {
+    "id": "borsh-i64-minus-one",
+    "mode": "borsh",
+    "description": "i64 -1: eight 0xff bytes (php smoke-test case).",
+    "input": {
+      "type": "i64",
+      "value": "-1"
+    },
+    "expected": {
+      "hex": "ffffffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-i64-minus-5000",
+    "mode": "borsh",
+    "description": "i64 -5000 (php smoke-test case).",
+    "input": {
+      "type": "i64",
+      "value": "-5000"
+    },
+    "expected": {
+      "hex": "78ecffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-i64-min",
+    "mode": "borsh",
+    "description": "i64 minimum value (-2^63).",
+    "input": {
+      "type": "i64",
+      "value": "-9223372036854775808"
+    },
+    "expected": {
+      "hex": "0000000000000080"
+    }
+  },
+  {
+    "id": "borsh-i64-max",
+    "mode": "borsh",
+    "description": "i64 maximum value (2^63-1).",
+    "input": {
+      "type": "i64",
+      "value": "9223372036854775807"
+    },
+    "expected": {
+      "hex": "ffffffffffffff7f"
+    }
+  },
+  {
+    "id": "borsh-i128-minus-one",
+    "mode": "borsh",
+    "description": "i128 -1: sixteen 0xff bytes (python smoke-test case).",
+    "input": {
+      "type": "i128",
+      "value": "-1"
+    },
+    "expected": {
+      "hex": "ffffffffffffffffffffffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-i128-min",
+    "mode": "borsh",
+    "description": "i128 minimum value (-2^127, php smoke-test case).",
+    "input": {
+      "type": "i128",
+      "value": "-170141183460469231731687303715884105728"
+    },
+    "expected": {
+      "hex": "00000000000000000000000000000080"
+    }
+  },
+  {
+    "id": "borsh-i128-max",
+    "mode": "borsh",
+    "description": "i128 maximum value (2^127-1).",
+    "input": {
+      "type": "i128",
+      "value": "170141183460469231731687303715884105727"
+    },
+    "expected": {
+      "hex": "ffffffffffffffffffffffffffffff7f"
+    }
+  },
+  {
+    "id": "borsh-f32-zero",
+    "mode": "borsh",
+    "description": "f32 positive zero.",
+    "input": {
+      "type": "f32",
+      "value": 0
+    },
+    "expected": {
+      "hex": "00000000"
+    }
+  },
+  {
+    "id": "borsh-f32-1p5",
+    "mode": "borsh",
+    "description": "f32 1.5 (exactly representable).",
+    "input": {
+      "type": "f32",
+      "value": 1.5
+    },
+    "expected": {
+      "hex": "0000c03f"
+    }
+  },
+  {
+    "id": "borsh-f32-neg-2p25",
+    "mode": "borsh",
+    "description": "f32 -2.25 (exactly representable).",
+    "input": {
+      "type": "f32",
+      "value": -2.25
+    },
+    "expected": {
+      "hex": "000010c0"
+    }
+  },
+  {
+    "id": "borsh-f64-1p5",
+    "mode": "borsh",
+    "description": "f64 1.5 (php smoke-test case).",
+    "input": {
+      "type": "f64",
+      "value": 1.5
+    },
+    "expected": {
+      "hex": "000000000000f83f"
+    }
+  },
+  {
+    "id": "borsh-f64-neg-1024p5",
+    "mode": "borsh",
+    "description": "f64 -1024.5 (exactly representable).",
+    "input": {
+      "type": "f64",
+      "value": -1024.5
+    },
+    "expected": {
+      "hex": "00000000000290c0"
+    }
+  },
+  {
+    "id": "borsh-f64-2pow-10",
+    "mode": "borsh",
+    "description": "f64 2^-10 = 0.0009765625 (exactly representable).",
+    "input": {
+      "type": "f64",
+      "value": 0.0009765625
+    },
+    "expected": {
+      "hex": "000000000000503f"
+    }
+  },
+  {
+    "id": "borsh-bool-true",
+    "mode": "borsh",
+    "description": "bool true encodes as 0x01.",
+    "input": {
+      "type": "bool",
+      "value": true
+    },
+    "expected": {
+      "hex": "01"
+    }
+  },
+  {
+    "id": "borsh-bool-false",
+    "mode": "borsh",
+    "description": "bool false encodes as 0x00.",
+    "input": {
+      "type": "bool",
+      "value": false
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-option-u64-none",
+    "mode": "borsh",
+    "description": "option<u64> none: a single 0x00 flag byte.",
+    "input": {
+      "type": {
+        "option": "u64"
+      },
+      "value": null
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-option-u64-some-7",
+    "mode": "borsh",
+    "description": "option<u64> some(7): 0x01 flag + u64 LE payload.",
+    "input": {
+      "type": {
+        "option": "u64"
+      },
+      "value": {
+        "some": "7"
+      }
+    },
+    "expected": {
+      "hex": "010700000000000000"
+    }
+  },
+  {
+    "id": "borsh-option-u64-some-42",
+    "mode": "borsh",
+    "description": "option<u64> some(42) (python smoke-test reader case).",
+    "input": {
+      "type": {
+        "option": "u64"
+      },
+      "value": {
+        "some": "42"
+      }
+    },
+    "expected": {
+      "hex": "012a00000000000000"
+    }
+  },
+  {
+    "id": "borsh-option-u8-some-7",
+    "mode": "borsh",
+    "description": "option<u8> some(7) (php smoke-test case).",
+    "input": {
+      "type": {
+        "option": "u8"
+      },
+      "value": {
+        "some": 7
+      }
+    },
+    "expected": {
+      "hex": "0107"
+    }
+  },
+  {
+    "id": "borsh-option-bool-some-false",
+    "mode": "borsh",
+    "description": "option<bool> some(false) must encode as 0x01 0x00, NOT as none (lua regression guard).",
+    "input": {
+      "type": {
+        "option": "bool"
+      },
+      "value": {
+        "some": false
+      }
+    },
+    "expected": {
+      "hex": "0100"
+    }
+  },
+  {
+    "id": "borsh-option-nested-none",
+    "mode": "borsh",
+    "description": "option<option<u8>> none: a single 0x00.",
+    "input": {
+      "type": {
+        "option": {
+          "option": "u8"
+        }
+      },
+      "value": null
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-option-nested-some-none",
+    "mode": "borsh",
+    "description": "option<option<u8>> some(none): outer 0x01 flag + inner 0x00 flag. Runtimes that use null/nil as the none sentinel (e.g. python, ruby, lua) cannot construct some(none) and may skip this vector; decode-capable runtimes should still accept the bytes.",
+    "input": {
+      "type": {
+        "option": {
+          "option": "u8"
+        }
+      },
+      "value": {
+        "some": null
+      }
+    },
+    "expected": {
+      "hex": "0100"
+    },
+    "optional": true
+  },
+  {
+    "id": "borsh-option-nested-some-some",
+    "mode": "borsh",
+    "description": "option<option<u8>> some(some(5)): two 0x01 flags + payload.",
+    "input": {
+      "type": {
+        "option": {
+          "option": "u8"
+        }
+      },
+      "value": {
+        "some": {
+          "some": 5
+        }
+      }
+    },
+    "expected": {
+      "hex": "010105"
+    }
+  },
+  {
+    "id": "borsh-option-bad-flag",
+    "mode": "borsh",
+    "description": "Strict decoders reject option flags other than 0 and 1 (python raises). Lenient decoders (ruby/php/lua) treat any non-zero flag as some; they may skip this vector.",
+    "input": {
+      "type": {
+        "option": "u8"
+      },
+      "hex": "0207",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    },
+    "optional": true
+  },
+  {
+    "id": "borsh-option-some-truncated",
+    "mode": "borsh",
+    "description": "option<u64> with a 0x01 flag but a truncated payload must fail.",
+    "input": {
+      "type": {
+        "option": "u64"
+      },
+      "hex": "012a0000",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-string-empty",
+    "mode": "borsh",
+    "description": "Empty string: a zero u32 length prefix and no payload.",
+    "input": {
+      "type": "string",
+      "value": ""
+    },
+    "expected": {
+      "hex": "00000000"
+    }
+  },
+  {
+    "id": "borsh-string-ascii-hi",
+    "mode": "borsh",
+    "description": "ASCII string \"hi\" (python smoke-test case).",
+    "input": {
+      "type": "string",
+      "value": "hi"
+    },
+    "expected": {
+      "hex": "020000006869"
+    }
+  },
+  {
+    "id": "borsh-string-ascii-hello",
+    "mode": "borsh",
+    "description": "ASCII string \"hello\" (php/ruby smoke-test seed value).",
+    "input": {
+      "type": "string",
+      "value": "hello"
+    },
+    "expected": {
+      "hex": "0500000068656c6c6f"
+    }
+  },
+  {
+    "id": "borsh-string-multibyte",
+    "mode": "borsh",
+    "description": "Multibyte UTF-8 \"héllo ✨\" (ruby memo smoke-test case): the prefix counts BYTES, not characters.",
+    "input": {
+      "type": "string",
+      "value": "héllo ✨"
+    },
+    "expected": {
+      "hex": "0a00000068c3a96c6c6f20e29ca8"
+    }
+  },
+  {
+    "id": "borsh-string-length-overrun",
+    "mode": "borsh",
+    "description": "A string whose u32 length prefix (100) exceeds the remaining bytes must fail.",
+    "input": {
+      "type": "string",
+      "hex": "640000006869",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-string-truncated-prefix",
+    "mode": "borsh",
+    "description": "A 2-byte buffer cannot hold the u32 length prefix.",
+    "input": {
+      "type": "string",
+      "hex": "0200",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-fixed-bytes-4",
+    "mode": "borsh",
+    "description": "Fixed 4-byte array: encoded verbatim, no prefix.",
+    "input": {
+      "type": {
+        "fixedBytes": 4
+      },
+      "value": "01020304"
+    },
+    "expected": {
+      "hex": "01020304"
+    }
+  },
+  {
+    "id": "borsh-fixed-bytes-32-zero",
+    "mode": "borsh",
+    "description": "Fixed 32-byte array of zeros (pubkey-shaped).",
+    "input": {
+      "type": {
+        "fixedBytes": 32
+      },
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "expected": {
+      "hex": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  {
+    "id": "borsh-fixed-bytes-truncated",
+    "mode": "borsh",
+    "description": "Reading 4 fixed bytes from a 2-byte buffer must fail.",
+    "input": {
+      "type": {
+        "fixedBytes": 4
+      },
+      "hex": "0102",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-prefixed-bytes",
+    "mode": "borsh",
+    "description": "u32-prefixed byte blob.",
+    "input": {
+      "type": "bytes",
+      "value": "aabbcc"
+    },
+    "expected": {
+      "hex": "03000000aabbcc"
+    }
+  },
+  {
+    "id": "borsh-prefixed-bytes-empty",
+    "mode": "borsh",
+    "description": "Empty u32-prefixed byte blob: just the zero prefix.",
+    "input": {
+      "type": "bytes",
+      "value": ""
+    },
+    "expected": {
+      "hex": "00000000"
+    }
+  },
+  {
+    "id": "borsh-pubkey",
+    "mode": "borsh",
+    "description": "A pubkey is its raw 32 bytes (input as base58, per the corpus conventions).",
+    "input": {
+      "type": "pubkey",
+      "value": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+    },
+    "expected": {
+      "hex": "054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d"
+    }
+  },
+  {
+    "id": "borsh-shortu16-0",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0 encodes as a single 0x00.",
+    "input": {
+      "type": "shortu16",
+      "value": 0
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-shortu16-1",
+    "mode": "borsh",
+    "description": "shortU16 1.",
+    "input": {
+      "type": "shortu16",
+      "value": 1
+    },
+    "expected": {
+      "hex": "01"
+    }
+  },
+  {
+    "id": "borsh-shortu16-7f",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0x7f is the largest single-byte value.",
+    "input": {
+      "type": "shortu16",
+      "value": 127
+    },
+    "expected": {
+      "hex": "7f"
+    }
+  },
+  {
+    "id": "borsh-shortu16-80",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0x80 is the smallest two-byte value (php smoke-test case).",
+    "input": {
+      "type": "shortu16",
+      "value": 128
+    },
+    "expected": {
+      "hex": "8001"
+    }
+  },
+  {
+    "id": "borsh-shortu16-3fff",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0x3fff is the largest two-byte value.",
+    "input": {
+      "type": "shortu16",
+      "value": 16383
+    },
+    "expected": {
+      "hex": "ff7f"
+    }
+  },
+  {
+    "id": "borsh-shortu16-4000",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0x4000 is the smallest three-byte value.",
+    "input": {
+      "type": "shortu16",
+      "value": 16384
+    },
+    "expected": {
+      "hex": "808001"
+    }
+  },
+  {
+    "id": "borsh-shortu16-ffff",
+    "mode": "borsh",
+    "description": "shortU16 boundary: 0xffff is the maximum value.",
+    "input": {
+      "type": "shortu16",
+      "value": 65535
+    },
+    "expected": {
+      "hex": "ffff03"
+    }
+  },
+  {
+    "id": "borsh-shortu16-alias-accepted",
+    "mode": "borsh",
+    "description": "Non-canonical (aliased) encoding of 0 as [0x80, 0x00]. The four renderer runtimes accept aliased encodings on decode (decode-only: re-encoding produces the canonical form).",
+    "input": {
+      "type": "shortu16",
+      "hex": "8000",
+      "direction": "decode"
+    },
+    "expected": {
+      "value": 0
+    },
+    "optional": true
+  },
+  {
+    "id": "borsh-shortu16-too-long",
+    "mode": "borsh",
+    "description": "A fourth continuation byte exceeds the 3-byte maximum and must fail.",
+    "input": {
+      "type": "shortu16",
+      "hex": "80808001",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-shortu16-truncated",
+    "mode": "borsh",
+    "description": "A continuation bit with no following byte must fail.",
+    "input": {
+      "type": "shortu16",
+      "hex": "8080",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-vec-u16",
+    "mode": "borsh",
+    "description": "vec<u16> [1,2,3]: u32 count prefix + items (php smoke-test case).",
+    "input": {
+      "type": {
+        "vec": "u16"
+      },
+      "value": [
+        1,
+        2,
+        3
+      ]
+    },
+    "expected": {
+      "hex": "03000000010002000300"
+    }
+  },
+  {
+    "id": "borsh-vec-u8-empty",
+    "mode": "borsh",
+    "description": "Empty vec<u8>: just the zero count prefix.",
+    "input": {
+      "type": {
+        "vec": "u8"
+      },
+      "value": []
+    },
+    "expected": {
+      "hex": "00000000"
+    }
+  },
+  {
+    "id": "borsh-vec-u64",
+    "mode": "borsh",
+    "description": "vec<u64> with 64-bit decimal-string items.",
+    "input": {
+      "type": {
+        "vec": "u64"
+      },
+      "value": [
+        "1",
+        "18446744073709551615"
+      ]
+    },
+    "expected": {
+      "hex": "020000000100000000000000ffffffffffffffff"
+    }
+  },
+  {
+    "id": "borsh-vec-count-overrun",
+    "mode": "borsh",
+    "description": "A vec whose count prefix (3) exceeds the available items must fail.",
+    "input": {
+      "type": {
+        "vec": "u16"
+      },
+      "hex": "030000000100",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-array-i32-3",
+    "mode": "borsh",
+    "description": "Fixed [i32; 3] array (ruby kitchen-sink fixed_window case): no count prefix.",
+    "input": {
+      "type": {
+        "array": {
+          "item": "i32",
+          "size": 3
+        }
+      },
+      "value": [
+        -1,
+        0,
+        2147483647
+      ]
+    },
+    "expected": {
+      "hex": "ffffffff00000000ffffff7f"
+    }
+  },
+  {
+    "id": "borsh-array-u8-4",
+    "mode": "borsh",
+    "description": "Fixed [u8; 4] array.",
+    "input": {
+      "type": {
+        "array": {
+          "item": "u8",
+          "size": 4
+        }
+      },
+      "value": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "expected": {
+      "hex": "01020304"
+    }
+  },
+  {
+    "id": "borsh-map-u8-u8",
+    "mode": "borsh",
+    "description": "map<u8,u8> {1:10, 3:30}: u32 count + entries in ascending key order (python smoke-test case).",
+    "input": {
+      "type": {
+        "map": {
+          "key": "u8",
+          "value": "u8"
+        }
+      },
+      "value": [
+        [
+          1,
+          10
+        ],
+        [
+          3,
+          30
+        ]
+      ]
+    },
+    "expected": {
+      "hex": "02000000010a031e"
+    }
+  },
+  {
+    "id": "borsh-map-string-u8",
+    "mode": "borsh",
+    "description": "map<string,u8> {\"a\":1, \"b\":2} (php smoke-test case): keys in ascending order.",
+    "input": {
+      "type": {
+        "map": {
+          "key": "string",
+          "value": "u8"
+        }
+      },
+      "value": [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          2
+        ]
+      ]
+    },
+    "expected": {
+      "hex": "02000000010000006101010000006202"
+    }
+  },
+  {
+    "id": "borsh-map-string-u16",
+    "mode": "borsh",
+    "description": "map<string,u16> with the kitchen-sink metadata keys, ascending (\"level\" < \"name\").",
+    "input": {
+      "type": {
+        "map": {
+          "key": "string",
+          "value": "u16"
+        }
+      },
+      "value": [
+        [
+          "level",
+          99
+        ],
+        [
+          "name",
+          1
+        ]
+      ]
+    },
+    "expected": {
+      "hex": "02000000050000006c6576656c6300040000006e616d650100"
+    }
+  },
+  {
+    "id": "borsh-map-unordered-input-canonicalized",
+    "mode": "borsh",
+    "description": "Sorting writers (python, lua) canonicalize out-of-order map input to ascending key order. Insertion-order writers (ruby, php) may skip this vector.",
+    "input": {
+      "type": {
+        "map": {
+          "key": "u8",
+          "value": "u8"
+        }
+      },
+      "value": [
+        [
+          3,
+          30
+        ],
+        [
+          1,
+          10
+        ]
+      ],
+      "direction": "encode"
+    },
+    "expected": {
+      "hex": "02000000010a031e"
+    },
+    "optional": true
+  },
+  {
+    "id": "borsh-map-truncated",
+    "mode": "borsh",
+    "description": "A map whose count prefix (2) exceeds the available entries must fail.",
+    "input": {
+      "type": {
+        "map": {
+          "key": "u8",
+          "value": "u8"
+        }
+      },
+      "hex": "02000000010a",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "borsh-set-string",
+    "mode": "borsh",
+    "description": "set<string> {\"a\",\"b\"}: u32 count + items in ascending order (python smoke-test case).",
+    "input": {
+      "type": {
+        "set": "string"
+      },
+      "value": [
+        "a",
+        "b"
+      ]
+    },
+    "expected": {
+      "hex": "0200000001000000610100000062"
+    }
+  },
+  {
+    "id": "borsh-set-u8",
+    "mode": "borsh",
+    "description": "set<u8> {1,2,255} in ascending order.",
+    "input": {
+      "type": {
+        "set": "u8"
+      },
+      "value": [
+        1,
+        2,
+        255
+      ]
+    },
+    "expected": {
+      "hex": "030000000102ff"
+    }
+  },
+  {
+    "id": "borsh-set-unordered-input-canonicalized",
+    "mode": "borsh",
+    "description": "Sorting writers (python, lua) canonicalize out-of-order set input. Insertion-order writers (ruby, php) may skip this vector.",
+    "input": {
+      "type": {
+        "set": "string"
+      },
+      "value": [
+        "b",
+        "a"
+      ],
+      "direction": "encode"
+    },
+    "expected": {
+      "hex": "0200000001000000610100000062"
+    },
+    "optional": true
+  },
+  {
+    "id": "borsh-tuple-bool-true",
+    "mode": "borsh",
+    "description": "Single-item tuple (bool): the pump-fun OptionBool alias, some-style.",
+    "input": {
+      "type": {
+        "tuple": [
+          "bool"
+        ]
+      },
+      "value": [
+        true
+      ]
+    },
+    "expected": {
+      "hex": "01"
+    }
+  },
+  {
+    "id": "borsh-tuple-bool-false",
+    "mode": "borsh",
+    "description": "Single-item tuple (bool): the pump-fun OptionBool alias, false.",
+    "input": {
+      "type": {
+        "tuple": [
+          "bool"
+        ]
+      },
+      "value": [
+        false
+      ]
+    },
+    "expected": {
+      "hex": "00"
+    }
+  },
+  {
+    "id": "borsh-tuple-u8-u64",
+    "mode": "borsh",
+    "description": "Tuple (u8, u64): items concatenated with no prefix (kitchen-sink Split variant payload shape).",
+    "input": {
+      "type": {
+        "tuple": [
+          "u8",
+          "u64"
+        ]
+      },
+      "value": [
+        3,
+        "9000000000"
+      ]
+    },
+    "expected": {
+      "hex": "03001a711802000000"
+    }
+  },
+  {
+    "id": "borsh-tuple-string-pubkey",
+    "mode": "borsh",
+    "description": "Tuple (string, pubkey): mixed-width items.",
+    "input": {
+      "type": {
+        "tuple": [
+          "string",
+          "pubkey"
+        ]
+      },
+      "value": [
+        "seed",
+        "11111111111111111111111111111111"
+      ]
+    },
+    "expected": {
+      "hex": "04000000736565640000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+]

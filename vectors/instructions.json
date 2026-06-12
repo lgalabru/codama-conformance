@@ -1,0 +1,775 @@
+[
+  {
+    "id": "ix-system-transfer-sol-one-million",
+    "mode": "instruction",
+    "description": "System transferSol: u32 LE field discriminator 2 + u64 LE amount (python/php smoke-test case).",
+    "input": {
+      "program": "system",
+      "instruction": "transferSol",
+      "accounts": {
+        "source": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "destination": "7g2eDDDvbWoUjjSMSGA4WdQhSBNRRGTRwY4MQer2hUYy"
+      },
+      "args": {
+        "amount": "1000000"
+      }
+    },
+    "expected": {
+      "programId": "11111111111111111111111111111111",
+      "dataHex": "0200000040420f0000000000",
+      "accounts": [
+        {
+          "name": "source",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "destination",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "7g2eDDDvbWoUjjSMSGA4WdQhSBNRRGTRwY4MQer2hUYy"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-system-transfer-sol-u64-max",
+    "mode": "instruction",
+    "description": "System transferSol with the maximum u64 amount (lua smoke-test case).",
+    "input": {
+      "program": "system",
+      "instruction": "transferSol",
+      "accounts": {
+        "source": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "destination": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+      },
+      "args": {
+        "amount": "18446744073709551615"
+      }
+    },
+    "expected": {
+      "programId": "11111111111111111111111111111111",
+      "dataHex": "02000000ffffffffffffffff",
+      "accounts": [
+        {
+          "name": "source",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "destination",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-system-transfer-sol-ruby-amount",
+    "mode": "instruction",
+    "description": "System transferSol with amount 1234567890 (ruby smoke-test case).",
+    "input": {
+      "program": "system",
+      "instruction": "transferSol",
+      "accounts": {
+        "source": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+        "destination": "So11111111111111111111111111111111111111112"
+      },
+      "args": {
+        "amount": "1234567890"
+      }
+    },
+    "expected": {
+      "programId": "11111111111111111111111111111111",
+      "dataHex": "02000000d202964900000000",
+      "accounts": [
+        {
+          "name": "source",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S"
+        },
+        {
+          "name": "destination",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "So11111111111111111111111111111111111111112"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-system-transfer-sol-truncated-decode",
+    "mode": "instruction",
+    "description": "Decoding transferSol instruction data that ends after the discriminator must fail.",
+    "input": {
+      "program": "system",
+      "instruction": "transferSol",
+      "dataHex": "02000000",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "ix-system-create-account-with-seed",
+    "mode": "instruction",
+    "description": "System createAccountWithSeed (ruby smoke-test case): u32 disc 3 + base pubkey + u32-prefixed seed string + u64 amount + u64 space + programAddress pubkey.",
+    "input": {
+      "program": "system",
+      "instruction": "createAccountWithSeed",
+      "accounts": {
+        "payer": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+        "newAccount": "So11111111111111111111111111111111111111112",
+        "baseAccount": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S"
+      },
+      "args": {
+        "base": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S",
+        "seed": "hello",
+        "amount": "42",
+        "space": "165",
+        "programAddress": "11111111111111111111111111111111"
+      }
+    },
+    "expected": {
+      "programId": "11111111111111111111111111111111",
+      "dataHex": "03000000e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e9890500000068656c6c6f2a00000000000000a5000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "accounts": [
+        {
+          "name": "payer",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S"
+        },
+        {
+          "name": "newAccount",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "So11111111111111111111111111111111111111112"
+        },
+        {
+          "name": "baseAccount",
+          "isSigner": true,
+          "isWritable": false,
+          "address": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-memo-add-memo-ascii",
+    "mode": "instruction",
+    "description": "Memo addMemo: the data is the raw UTF-8 bytes of the memo (a remainder string, no prefix). Account metas are caller-supplied remaining accounts and are not pinned.",
+    "input": {
+      "program": "memo",
+      "instruction": "addMemo",
+      "accounts": {},
+      "args": {
+        "memo": "hello memo"
+      }
+    },
+    "expected": {
+      "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+      "dataHex": "68656c6c6f206d656d6f"
+    }
+  },
+  {
+    "id": "ix-memo-add-memo-punctuated",
+    "mode": "instruction",
+    "description": "Memo addMemo with punctuation (ruby smoke-test case).",
+    "input": {
+      "program": "memo",
+      "instruction": "addMemo",
+      "accounts": {},
+      "args": {
+        "memo": "Hello, Solana!"
+      }
+    },
+    "expected": {
+      "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+      "dataHex": "48656c6c6f2c20536f6c616e6121"
+    }
+  },
+  {
+    "id": "ix-memo-add-memo-multibyte",
+    "mode": "instruction",
+    "description": "Memo addMemo with multibyte UTF-8 (ruby smoke-test case): byte length differs from character count.",
+    "input": {
+      "program": "memo",
+      "instruction": "addMemo",
+      "accounts": {},
+      "args": {
+        "memo": "héllo ✨"
+      }
+    },
+    "expected": {
+      "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+      "dataHex": "68c3a96c6c6f20e29ca8"
+    }
+  },
+  {
+    "id": "ix-pump-buy",
+    "mode": "instruction",
+    "description": "Pump-fun buy (lua smoke-test case): 8-byte Anchor discriminator 66063d1201daebea + u64 amount + u64 maxSolCost + OptionBool tuple (1 byte). All 16 accounts supplied explicitly.",
+    "input": {
+      "program": "pump",
+      "instruction": "buy",
+      "accounts": {
+        "global": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "feeRecipient": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "mint": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "bondingCurve": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "associatedBondingCurve": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "associatedUser": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "user": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "systemProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "tokenProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "creatorVault": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "eventAuthority": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "program": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "globalVolumeAccumulator": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "userVolumeAccumulator": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "feeConfig": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+        "feeProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+      },
+      "args": {
+        "amount": "42",
+        "maxSolCost": "99",
+        "trackVolume": [
+          true
+        ]
+      }
+    },
+    "expected": {
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+      "dataHex": "66063d1201daebea2a00000000000000630000000000000001",
+      "accounts": [
+        {
+          "name": "global",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "feeRecipient",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "mint",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "bondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "associatedBondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "associatedUser",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "user",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "systemProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "tokenProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "creatorVault",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "eventAuthority",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "program",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "globalVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "userVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "feeConfig",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        },
+        {
+          "name": "feeProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-pump-buy-u64-max",
+    "mode": "instruction",
+    "description": "Pump-fun buy with the maximum u64 amount (php smoke-test case). Data bytes only.",
+    "input": {
+      "program": "pump",
+      "instruction": "buy",
+      "accounts": {
+        "global": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "feeRecipient": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "mint": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "bondingCurve": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "associatedBondingCurve": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "associatedUser": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "user": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "systemProgram": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "tokenProgram": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "creatorVault": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "eventAuthority": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "program": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "globalVolumeAccumulator": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "userVolumeAccumulator": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "feeConfig": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt",
+        "feeProgram": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+      },
+      "args": {
+        "amount": "18446744073709551615",
+        "maxSolCost": "1",
+        "trackVolume": [
+          true
+        ]
+      }
+    },
+    "expected": {
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+      "dataHex": "66063d1201daebeaffffffffffffffff010000000000000001",
+      "accounts": [
+        {
+          "name": "global",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "feeRecipient",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "mint",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "bondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "associatedBondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "associatedUser",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "user",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "systemProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "tokenProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "creatorVault",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "eventAuthority",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "program",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "globalVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "userVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "feeConfig",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        },
+        {
+          "name": "feeProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "GpHzfnYHnJNqRmL4mNQu7BFFcBcwTakTQEDrCdcVm5Zt"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-pump-buy-default-program-accounts",
+    "mode": "instruction",
+    "description": "Pump-fun buy with constant-default accounts omitted (python smoke-test case): builders that resolve constant public-key defaults must fill systemProgram, tokenProgram, program and feeProgram. Builders without default resolution may skip this vector.",
+    "optional": true,
+    "input": {
+      "program": "pump",
+      "instruction": "buy",
+      "accounts": {
+        "global": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "feeRecipient": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "mint": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "bondingCurve": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "associatedBondingCurve": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "associatedUser": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "user": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "creatorVault": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "eventAuthority": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "globalVolumeAccumulator": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "userVolumeAccumulator": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+        "feeConfig": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+      },
+      "args": {
+        "amount": "42",
+        "maxSolCost": "43",
+        "trackVolume": [
+          true
+        ]
+      }
+    },
+    "expected": {
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+      "dataHex": "66063d1201daebea2a000000000000002b0000000000000001",
+      "accounts": [
+        {
+          "name": "global",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "feeRecipient",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "mint",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "bondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "associatedBondingCurve",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "associatedUser",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "user",
+          "isSigner": true,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "systemProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "tokenProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "creatorVault",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "eventAuthority",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "program",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+        },
+        {
+          "name": "globalVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "userVolumeAccumulator",
+          "isSigner": false,
+          "isWritable": true,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "feeConfig",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh"
+        },
+        {
+          "name": "feeProgram",
+          "isSigner": false,
+          "isWritable": false,
+          "address": "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-pump-create",
+    "mode": "instruction",
+    "description": "Pump-fun create (ruby smoke-test case): 8-byte Anchor discriminator + three u32-prefixed strings + trailing creator pubkey. Account metas pinned by flag only (addresses are caller-supplied).",
+    "input": {
+      "program": "pump",
+      "instruction": "create",
+      "accounts": {},
+      "args": {
+        "name": "My Token",
+        "symbol": "MTK",
+        "uri": "https://example.com/meta.json",
+        "creator": "GJRYBLa6XpfswT1AN5tpGp8NHtUirwAdTPdSYXsW9L3S"
+      }
+    },
+    "expected": {
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+      "dataHex": "181ec828051c0777080000004d7920546f6b656e030000004d544b1d00000068747470733a2f2f6578616d706c652e636f6d2f6d6574612e6a736f6ee355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989",
+      "accounts": [
+        {
+          "name": "mint",
+          "isSigner": true,
+          "isWritable": true
+        },
+        {
+          "name": "mintAuthority",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "bondingCurve",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "name": "associatedBondingCurve",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "name": "global",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "mplTokenMetadata",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "metadata",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "name": "user",
+          "isSigner": true,
+          "isWritable": true
+        },
+        {
+          "name": "systemProgram",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "tokenProgram",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "rent",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "eventAuthority",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "name": "program",
+          "isSigner": false,
+          "isWritable": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "ix-pump-buy-truncated-decode",
+    "mode": "instruction",
+    "description": "Decoding buy instruction data truncated mid-amount must fail.",
+    "input": {
+      "program": "pump",
+      "instruction": "buy",
+      "dataHex": "66063d1201daebea2a0000",
+      "direction": "decode"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "ix-dummy-instruction3",
+    "mode": "instruction",
+    "description": "Dummy instruction3: only the omitted u32 field discriminator (42) is encoded.",
+    "input": {
+      "program": "dummy",
+      "instruction": "instruction3",
+      "accounts": {},
+      "args": {}
+    },
+    "expected": {
+      "programId": "Dummy11111111111111111111111111111111111111",
+      "dataHex": "2a000000",
+      "accounts": []
+    }
+  },
+  {
+    "id": "ix-dummy-instruction5-default",
+    "mode": "instruction",
+    "description": "Dummy instruction5: the optional u64 argument defaults to 42 when omitted.",
+    "input": {
+      "program": "dummy",
+      "instruction": "instruction5",
+      "accounts": {},
+      "args": {}
+    },
+    "expected": {
+      "programId": "Dummy11111111111111111111111111111111111111",
+      "dataHex": "2a00000000000000",
+      "accounts": []
+    }
+  },
+  {
+    "id": "ix-dummy-instruction5-explicit",
+    "mode": "instruction",
+    "description": "Dummy instruction5 with the optional argument provided (7).",
+    "input": {
+      "program": "dummy",
+      "instruction": "instruction5",
+      "accounts": {},
+      "args": {
+        "myArgument": "7"
+      }
+    },
+    "expected": {
+      "programId": "Dummy11111111111111111111111111111111111111",
+      "dataHex": "0700000000000000",
+      "accounts": []
+    }
+  }
+]

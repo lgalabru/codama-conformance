@@ -1,0 +1,463 @@
+[
+  {
+    "id": "pda-find-global-pump",
+    "mode": "pda",
+    "description": "Python smoke test: bump 255, the first candidate is already off-curve.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "676c6f62616c"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "address": "4wTV1YmiEkRvAtNtsSGPtUrqRYQMe5SKy2uB4Jjaxnjf",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-find-vault-23-pump",
+    "mode": "pda",
+    "description": "Python smoke test: bump 250 — bumps 255..251 all land on the curve and must be rejected by the loop.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "23"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "address": "76jNgxjtv5f2MkuXWMkNKdqsnL8yMm3jnmBez2Bn3Mbz",
+      "bump": 250
+    }
+  },
+  {
+    "id": "pda-find-user-stats-system",
+    "mode": "pda",
+    "description": "Python smoke test: bump 249, multiple seeds including a pubkey.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "757365722d7374617473",
+        "054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d",
+        "06"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "8SWwACT3P72rLtLx9rRirNG5ezxQ17pPwTiNYoZN1MUP",
+      "bump": 249
+    }
+  },
+  {
+    "id": "pda-find-vault-wallet-system",
+    "mode": "pda",
+    "description": "Ruby smoke test: string + pubkey seeds, bump 255.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "7FTcQzuHk9kRD8DHzSRk1TQdrFXLxtKaMghEGLoYZWZU",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-find-vault1-wallet-token",
+    "mode": "pda",
+    "description": "Ruby smoke test: bump 253, exercises the bump loop.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c7431",
+        "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989"
+      ],
+      "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "expected": {
+      "address": "FBzBWN9bWEKMxzTKNnT52ZDrSL3aAb8Z41fzRPSK7V11",
+      "bump": 253
+    }
+  },
+  {
+    "id": "pda-find-associated-token-account",
+    "mode": "pda",
+    "description": "Ruby smoke test: the canonical ATA derivation (owner, token program, mint).",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989",
+        "06ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a9",
+        "069b8857feab8184fb687f634618c035dac439dc1aeb3b5598a0f00000000001"
+      ],
+      "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+    },
+    "expected": {
+      "address": "CPXWnhCPGCnyJJw8ZxABpB88n8LjqUgzLv8R7kor9xgT",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-find-vault-pump-system",
+    "mode": "pda",
+    "description": "PHP smoke test: string + pubkey seeds under the system program.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "0156e0f693665acf44db1568bf175baa5189cb97f5d2ff3b655d2bb6fd6d18b0"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "9QupkCyPmS9N3GGtkrsfuVqQwnRCCemUY6mCMKahkQVh",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-find-metadata-metaplex-pump",
+    "mode": "pda",
+    "description": "PHP smoke test: two string seeds.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "6d65746164617461",
+        "6d657461706c6578"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "address": "CPkf1tvGMVF5aGMnBQ27HE13xji6PCy3j6fAFysfNCN4",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-find-u64-seed-memo",
+    "mode": "pda",
+    "description": "PHP smoke test: a u64 LE byte seed before a string seed, bump 254.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "2a00000000000000",
+        "676c6f62616c"
+      ],
+      "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+    },
+    "expected": {
+      "address": "EH2Du28uF223ZMiJFLvH3v5Ur7JbE3vmyz4qC8ktVERG",
+      "bump": 254
+    }
+  },
+  {
+    "id": "pda-find-vault-user9-system",
+    "mode": "pda",
+    "description": "PHP smoke test: bump 251 — the on-curve rejection loop runs several times.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "7573657239"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "6XTsA8455CLY6YFgrbxVh9QgGb8424aKUYX4ZmyvfuHA",
+      "bump": 251
+    }
+  },
+  {
+    "id": "pda-find-vault-system",
+    "mode": "pda",
+    "description": "Lua smoke test: a single string seed, bump 254.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "58CDQ9Qgw1ZPedjaTtwrR2MSG4EmmguHSPE2bFtyfinD",
+      "bump": 254
+    }
+  },
+  {
+    "id": "pda-find-vault-memo-token",
+    "mode": "pda",
+    "description": "Lua smoke test: string + pubkey seeds, bump 254.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d"
+      ],
+      "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "expected": {
+      "address": "GpAyoYkFKLY8WaYhikv4YUn3FNzzTzvSp2sAx35Cz3te",
+      "bump": 254
+    }
+  },
+  {
+    "id": "pda-find-metadata-binary-pump",
+    "mode": "pda",
+    "description": "Lua smoke test: string + raw binary + string seeds, bump 255.",
+    "input": {
+      "op": "findProgramAddress",
+      "seeds": [
+        "6d65746164617461",
+        "01020304",
+        "70756d70"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "address": "sBvFxVvS2WaUNTiGC7KBzTFrhRWZTyNpRC2AgBRT8yo",
+      "bump": 255
+    }
+  },
+  {
+    "id": "pda-create-vault-user9-bump-251",
+    "mode": "pda",
+    "description": "PHP smoke test: createProgramAddress with the found bump reproduces the findProgramAddress result.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "7573657239",
+        "fb"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "address": "6XTsA8455CLY6YFgrbxVh9QgGb8424aKUYX4ZmyvfuHA"
+    }
+  },
+  {
+    "id": "pda-create-vault-user9-bump-255-on-curve",
+    "mode": "pda",
+    "description": "PHP smoke test: bump 255 lands ON the ed25519 curve for these seeds and must be rejected.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "7573657239",
+        "ff"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "pda-create-vault-23-bump-250",
+    "mode": "pda",
+    "description": "Python smoke test: createProgramAddress reproduces the bump-250 findProgramAddress result.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "23",
+        "fa"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "address": "76jNgxjtv5f2MkuXWMkNKdqsnL8yMm3jnmBez2Bn3Mbz"
+    }
+  },
+  {
+    "id": "pda-create-vault-23-bump-255-on-curve",
+    "mode": "pda",
+    "description": "Python smoke test: bump 255 is on-curve for these seeds and must fail with a typed PDA error.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "7661756c74",
+        "23",
+        "ff"
+      ],
+      "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "pda-create-vault1-wallet-bump-253",
+    "mode": "pda",
+    "description": "Ruby smoke test: createProgramAddress with bump 253 under the token program.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "7661756c7431",
+        "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989",
+        "fd"
+      ],
+      "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "expected": {
+      "address": "FBzBWN9bWEKMxzTKNnT52ZDrSL3aAb8Z41fzRPSK7V11"
+    }
+  },
+  {
+    "id": "pda-create-seed-too-long",
+    "mode": "pda",
+    "description": "A 33-byte seed exceeds the 32-byte maximum and must be rejected.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "ababababababababababababababababababababababababababababababababab"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "pda-create-too-many-seeds",
+    "mode": "pda",
+    "description": "Seventeen seeds exceed the 16-seed maximum and must be rejected.",
+    "input": {
+      "op": "createProgramAddress",
+      "seeds": [
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01",
+        "01"
+      ],
+      "programId": "11111111111111111111111111111111"
+    },
+    "expected": {
+      "error": true
+    }
+  },
+  {
+    "id": "pda-curve-all-zero-pubkey",
+    "mode": "pda",
+    "description": "The system program id (32 zero bytes) is a valid curve point.",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "expected": {
+      "onCurve": true
+    }
+  },
+  {
+    "id": "pda-curve-wallet-key",
+    "mode": "pda",
+    "description": "A real wallet key (ed25519 public key) is on the curve (ruby smoke-test case).",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "e355ec1f47160dabd7e7e4194f494c98fb09ebf8ed9ab02ea5752519cb56e989"
+    },
+    "expected": {
+      "onCurve": true
+    }
+  },
+  {
+    "id": "pda-curve-memo-program-key",
+    "mode": "pda",
+    "description": "The memo program id happens to be on the curve (lua smoke-test case).",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d"
+    },
+    "expected": {
+      "onCurve": true
+    }
+  },
+  {
+    "id": "pda-curve-derived-pda-1",
+    "mode": "pda",
+    "description": "The PDA derived from [\"vault\",\"user9\"]+bump 251 is off the curve (php smoke-test case).",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "52183c297ebfb4c8fe7784f5eb529cbaea4cc53c44827ab787ee3999c1ee8639"
+    },
+    "expected": {
+      "onCurve": false
+    }
+  },
+  {
+    "id": "pda-curve-derived-pda-2",
+    "mode": "pda",
+    "description": "The PDA derived from [\"global\"]+bump 255 under pump-fun is off the curve (python smoke-test case).",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "3a865e69ee0f5480cabcf66357e4dc2f18d58d45c1ea7489fb3723d9793c72a6"
+    },
+    "expected": {
+      "onCurve": false
+    }
+  },
+  {
+    "id": "pda-curve-y-equals-p",
+    "mode": "pda",
+    "description": "Invalid point encoding: y = p (non-canonical, must not decode as a curve point). Little-endian bytes of 2^255-19.",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f"
+    },
+    "expected": {
+      "onCurve": false
+    }
+  },
+  {
+    "id": "pda-curve-y-max",
+    "mode": "pda",
+    "description": "Invalid point encoding: all bytes 0xff (y = 2^255-1 after masking the sign bit, y >= p).",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "expected": {
+      "onCurve": false
+    }
+  },
+  {
+    "id": "pda-curve-y-equals-p-minus-1",
+    "mode": "pda",
+    "description": "Canonical but off-curve encoding: y = p-1 with sign bit clear. Reference result pinned from @solana/web3.js isOnCurve: true.",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f"
+    },
+    "expected": {
+      "onCurve": true
+    }
+  },
+  {
+    "id": "pda-curve-y-equals-1",
+    "mode": "pda",
+    "description": "The encoding of y=1 (the identity point) is a valid curve point.",
+    "input": {
+      "op": "isOnCurve",
+      "bytes": "0100000000000000000000000000000000000000000000000000000000000000"
+    },
+    "expected": {
+      "onCurve": true
+    }
+  }
+]

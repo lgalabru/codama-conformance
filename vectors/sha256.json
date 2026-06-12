@@ -1,0 +1,127 @@
+[
+  {
+    "id": "sha256-empty",
+    "mode": "sha256",
+    "description": "NIST vector: the empty message.",
+    "input": {
+      "utf8": ""
+    },
+    "expected": {
+      "hex": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "id": "sha256-abc",
+    "mode": "sha256",
+    "description": "NIST vector: \"abc\" (lua smoke-test case).",
+    "input": {
+      "utf8": "abc"
+    },
+    "expected": {
+      "hex": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    }
+  },
+  {
+    "id": "sha256-nist-448-bit",
+    "mode": "sha256",
+    "description": "NIST vector: the 448-bit two-block message.",
+    "input": {
+      "utf8": "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+    },
+    "expected": {
+      "hex": "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+    }
+  },
+  {
+    "id": "sha256-a-x-55",
+    "mode": "sha256",
+    "description": "Padding boundary: 55 bytes is the largest single-block message.",
+    "input": {
+      "repeat": {
+        "utf8": "a",
+        "count": 55
+      }
+    },
+    "expected": {
+      "hex": "9f4390f8d30c2dd92ec9f095b65e2b9ae9b0a925a5258e241c9f1e910f734318"
+    }
+  },
+  {
+    "id": "sha256-a-x-56",
+    "mode": "sha256",
+    "description": "Padding boundary: 56 bytes forces the length into a second block.",
+    "input": {
+      "repeat": {
+        "utf8": "a",
+        "count": 56
+      }
+    },
+    "expected": {
+      "hex": "b35439a4ac6f0948b6d6f9e3c6af0f5f590ce20f1bde7090ef7970686ec6738a"
+    }
+  },
+  {
+    "id": "sha256-a-x-64",
+    "mode": "sha256",
+    "description": "Block boundary: exactly one 64-byte block of input.",
+    "input": {
+      "repeat": {
+        "utf8": "a",
+        "count": 64
+      }
+    },
+    "expected": {
+      "hex": "ffe054fe7ae0cb6dc65c3af9b61d5209f439851db43d0ba5997337df154668eb"
+    }
+  },
+  {
+    "id": "sha256-a-x-1000",
+    "mode": "sha256",
+    "description": "Long input: 1000 repetitions of \"a\".",
+    "input": {
+      "repeat": {
+        "utf8": "a",
+        "count": 1000
+      }
+    },
+    "expected": {
+      "hex": "41edece42d63e8d9bf515a9ba6932e1c20cbc9f5a5d134645adb5db1b9737ea3"
+    }
+  },
+  {
+    "id": "sha256-a-x-1000000",
+    "mode": "sha256",
+    "description": "NIST vector: one million repetitions of \"a\".",
+    "input": {
+      "repeat": {
+        "utf8": "a",
+        "count": 1000000
+      }
+    },
+    "expected": {
+      "hex": "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+    }
+  },
+  {
+    "id": "sha256-binary-bd",
+    "mode": "sha256",
+    "description": "Binary input: the single byte 0xbd.",
+    "input": {
+      "hex": "bd"
+    },
+    "expected": {
+      "hex": "68325720aabd7c82f30f554b313d0570c95accbb7dc4b5aae11204c08ffe732b"
+    }
+  },
+  {
+    "id": "sha256-binary-00-ff",
+    "mode": "sha256",
+    "description": "Binary input: all 256 byte values in order.",
+    "input": {
+      "hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff"
+    },
+    "expected": {
+      "hex": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880"
+    }
+  }
+]
